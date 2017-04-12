@@ -1,0 +1,279 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage[font=small,labelfont=bf]{caption}
+
+\graphicspath{ {images/} }
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\usepackage{pdfpages}
+\setlength{\parindent}{1cm}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\linespread{1.25}
+
+\title{Design and Control of a Photonic Neural Network Applied to Low-Latency Classification}
+\author{Ethan Gordon '17 \\ \em{egordon@princeton.edu} \\ \\ Advisor: Paul R. Prucnal \\ \em{prucnal@princeton.edu} \\ \\ Submitted in partial fulfillment \\ of the requirements for the degree of \\ Bachelor of Science in Engineering \\ Department of Electrical Engineering \\ Princeton University \\ \\}
+\date{May 8, 2017}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+breaklines=true,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section*{Honor Statement}
+I hereby declare that this Independent Work report represents my own work in accordance with University regulations.
+\begin{flushright}
+\includegraphics[width=0.2\textwidth]{Signature} \\
+Ethan K. Gordon '17
+\end{flushright}
+
+\newpage
+\begin{centering}
+{\LARGE Design and Control of a Photonic Neural Network Applied to Low-Latency Classification} \\
+\vspace*{10px}
+{\large Ethan Gordon '17} \\
+{\em egordon@princeton.edu} \\
+\end{centering}
+
+\section*{Abstract}
+(Abstract)
+\newpage
+
+\section*{Acknowledgements}
+(Acknowledgements) \\
+
+\noindent {\em (Dedication)} 
+\tableofcontents
+
+\newpage
+
+\section{Background}
+\subsection{Motivation}
+(Limitations of Electronic / Software Neural Networks)
+
+\subsection{Operating Principles}
+%(Requirements for a Neural Network, Weighted Addition.)
+
+\begin{equation}
+\vec{x}_{i+1} = f(\vec{w}\cdot\vec{x}_i + b)
+\end{equation}
+
+\begin{equation}
+S^\dag S = I \implies \begin{bmatrix}
+r_c^* & t_c^* \\
+t_c^* & r_c^*
+\end{bmatrix}
+\begin{bmatrix}
+r_c & t_c \\
+t_c & r_c
+\end{bmatrix} = I \implies \begin{cases}
+|r_c|^2 + |t_c|^2 = 1 \\
+r^*t + rt^* = 0
+\end{cases}
+\end{equation}
+\begin{equation}
+\beta = (r\beta + i\sqrt{1 - r^2}\alpha)ae^{i\phi} \implies \beta = \frac{i\sqrt{1-r^2}\alpha a e^{i\phi}}{1 - rae^{i\phi}}
+\end{equation}
+\begin{equation}
+E_{thru} = \frac{1}{\alpha}(r\alpha + i\sqrt{1-r^2}\beta) = r - \frac{(1-r^2)a e^{i\phi}}{1 - rae^{i\phi}} = \frac{r-ae^{i\phi}}{1 - rae^{i\phi}}
+\end{equation}
+\begin{equation}
+P_{thru} = \frac{2r^2(1-cos(\phi))}{1 + r^4 - 2r^2cos(\phi)}
+\end{equation}
+\begin{equation}
+P_{drop} = 1-P_{thru} = \frac{(1-r^2)^2}{1 + r^4 - 2r^2cos(\phi)}
+\end{equation}
+
+\begin{equation}
+P_{drop} \approx \frac{(\frac{1}{r}-r)^2}{(\Delta\phi)^2 + (\frac{1}{r}-r)^2}
+\end{equation}
+
+%(Description of Microring and PIN Physics.)
+\subsection{Previous Photonic Networks}
+(Princeton's First Neural Network (1-Neuraon, 2-Neuron), and limitations.)
+
+\section{Network Design}
+\subsection{Axons and Optical Topology}
+(Description of Axons, Lorentzian Nonlinearity)
+
+(Star Topology vs. Hairpin Topology, Previous Star Topology)
+
+\subsection{Feed-Forward and Recurrent Networks}
+(Feed-Forward and Recurrent Network Descriptions in Star and Hairpin Topologies.)
+
+\subsection{Experimental Design: A 2-3-1 Feed-Forward Network}
+(What it says on the tin.)
+
+\section{Calibration, Control, and Training}
+\subsection{Thermal Calibration}
+(Description of Thermal Calibration Code and Procedure.)
+
+\subsection{Weight Calibration}
+(Description of Weight Calibration Code and Procedure.)
+
+\subsection{Modified Backpropagation}
+(Brief summary of backprop, and the changes in procedure required to match network dynamics.
+
+\section{Experimental Results}
+(TODO: Flesh Out)
+
+(Probably will contain: ThermalCal Results, WeightCal Results, Backprop, and final classification fidelity.)
+
+\section{Future Work: Mode Division Multiplexing}
+(Motivation: Increase Neuron Density)
+\subsection{Operating Principles}
+(Description of Transverse Modes.)
+(Simulated Results.)
+\subsection{Experimental Validation}
+(Description and Presentation of Experimental Results for MDM coupling.)
+\subsection{CHallenges}
+(Topology Change: Must use Hairpin Topology)
+(Intermodal Mixing, Calibration Difficulty)
+
+\section{Conclusions}
+(RF Applications)
+(Need for non-thermal modulation for better plasticity.)
+
+\newpage
+
+\begin{thebibliography}{100}
+
+\bibitem{demo} A. Tait, et al., "Demonstration of a silicon photonic neural network," {\em Photonics Society Summer Topical Meeting Series (SUM)}, IEEE, 2016.
+
+\bibitem{control} A. Tait, et al., "Multi-channel control for microring
+weight banks," Opt. Express 24, 8895-8906 (2016).
+
+\bibitem{colah} http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/
+
+\bibitem{image} http://colah.github.io/posts/2015-08-Understanding-LSTMs/
+
+\bibitem{lstm} S. Hochreiter and J. Schmidhuber, "Long Short-Term Memory," {\em Neural Computation}, 9(8), 735-1780 (1997).
+
+\bibitem{hopfield} Hopfield, et al., "'Neural' computation of decisions in optimization problems," Biological cybernetics, 52(3), 141-152 (1985).
+
+\bibitem{qubit} M.D. Reed, "Entanglement and Quantum Error Correction with
+Superconducting Qubits," PhD Dissertation, Yale University (2013).
+
+\bibitem{rf} K. E. Nolan, et al. "Modulation scheme classification for 4G software radio wireless networks." Proc. IASTED. 2002.
+
+\end{thebibliography}
+\newpage
+\section{Appendices}
+(Code Appendices)
+
+
+
+
+
+% THIS IS A COMMENT (not seen in final, compiled, report), indicated by %
+
+
+%% Example of Paragraphs and Matrices
+
+%In these matrices, the parameters $\theta_i$, $\alpha_i$, $d_i$ and $a_i$ represent the joint angle, link twist, link offset and link length, respectively. Therefore, in order to get the appropriate matrix, one need only substitute the corresponding values into each variable. For this assignment, our matrices are computed directly in our code.
+%For example, to find the position of the end of the first member, we would only multiply by its matrix:
+%\begin{equation}
+%\label{eqn:matrices}
+%\begin{bmatrix}
+%    x \\
+%    y \\
+%    z \\
+%\end{bmatrix}
+%= A_1
+%\begin{bmatrix}
+%    x_0 \\
+%    y_0 \\
+%    z_0 \\
+%\end{bmatrix}
+%\end{equation}
+
+%where $x_0$, $y_0$ and $z_0$ are the coordinates of the origin. However, for further links we have to multiply the matrices in the right order:
+%\begin{equation}
+%\begin{bmatrix}
+%    x \\
+%    y \\
+%    z \\
+%\end{bmatrix}
+%= A_1A_2A_3A_4
+%\begin{bmatrix}
+%    x_0 \\
+%    y_0 \\
+%    z_0 \\
+%\end{bmatrix}
+%\end{equation}
+
+%The above formula gives the position of the end of the fourth member (Robonaut's fingertip!).
+
+% Adding a Figure:
+%\begin{figure} 
+%\centering
+%\includegraphics[width=0.5\textwidth]{quadcopter}
+%\caption{A Crude CAD Model of the Syma X11 Quadcopter}
+%\label{quadcopter}
+%\end{figure}
+
+% Referencing a Figure
+% "Blah Blah as you can see in Figure \ref{quadcopter (figure label)}, Blah Blah"
+
+% Make a New Page
+%\newpage
+
+% How to add code:
+% \lstinputlisting{<file>.m}
+% With lines
+% \lstinputlisting[firstline=5, lastline=10]{<file>.m}
+
+%This is the bibliography. To make a new item, write \bibitem{good_name_here}. Add %the actual citation directly after this statement in this section.
+%Then, when you want to reference it in your text above, just type %\cite{good_name_here} where you want the in-text citation to go above
+%\begin{thebibliography}{100}
+
+%\bibitem{taxonomy} Kang, S. B., "Grasp Taxonomy," http://www.cs.cmu.edu/afs/cs/usr/sbk/www/thesis/taxonomy.html
+
+%\bibitem{Kasdin} Kasdin, N. J., and Paley, D. A. (2011). Engineering Dynamics: A Comprehensive Introduction. Princeton, NJ: Princeton University Press.
+
+%\bibitem{doc} Syma. (n.d.). X11/X11C Instruction Manual. Syma.n
+
+%\end{thebibliography}
+
+\end{document}
